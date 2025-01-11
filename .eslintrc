@@ -1,11 +1,6 @@
 {
-  "extends": "eslint-config-egg",
-  "rules": {
-    "no-console": "off",
-    "no-magic-numbers": "off",
-    "generator-star-spacing": "off",
-    "prefer-template": "off",
-    "max-len": "off",
-    "dot-notation": "off"
-  }
+  "extends": [
+    "eslint-config-egg/typescript",
+    "eslint-config-egg/lib/rules/enforce-node-prefix"
+  ]
 }
