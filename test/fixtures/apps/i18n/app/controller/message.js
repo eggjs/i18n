@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = async ctx => {
   ctx.body = {
     message: ctx.__('Hello %s, how are you today? How was your %s.', 'fengmk2', 18),

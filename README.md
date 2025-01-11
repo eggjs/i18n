@@ -1,24 +1,21 @@
-# egg-i18n
+# @eggjs/i18n
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
+[![Node.js CI](https://github.com/eggjs/i18n/actions/workflows/nodejs.yml/badge.svg)](https://github.com/eggjs/i18n/actions/workflows/nodejs.yml)
 [![Test coverage][codecov-image]][codecov-url]
-[![David deps][david-image]][david-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
+[![Node.js Version](https://img.shields.io/node/v/@eggjs/i18n.svg?style=flat)](https://nodejs.org/en/download/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 
-[npm-image]: https://img.shields.io/npm/v/egg-i18n.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/egg-i18n
-[travis-image]: https://img.shields.io/travis/eggjs/egg-i18n.svg?style=flat-square
-[travis-url]: https://travis-ci.org/eggjs/egg-i18n
-[codecov-image]: https://codecov.io/github/eggjs/egg-i18n/coverage.svg?branch=master
-[codecov-url]: https://codecov.io/github/eggjs/egg-i18n?branch=master
-[david-image]: https://img.shields.io/david/eggjs/egg-i18n.svg?style=flat-square
-[david-url]: https://david-dm.org/eggjs/egg-i18n
-[snyk-image]: https://snyk.io/test/npm/egg-i18n/badge.svg?style=flat-square
-[snyk-url]: https://snyk.io/test/npm/egg-i18n
-[download-image]: https://img.shields.io/npm/dm/egg-i18n.svg?style=flat-square
-[download-url]: https://npmjs.org/package/egg-i18n
+[npm-image]: https://img.shields.io/npm/v/@eggjs/i18n.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@eggjs/i18n
+[codecov-image]: https://img.shields.io/codecov/c/github/eggjs/i18n.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/eggjs/i18n?branch=master
+[snyk-image]: https://snyk.io/test/npm/@eggjs/i18n/badge.svg?style=flat-square
+[snyk-url]: https://snyk.io/test/npm/@eggjs/i18n
+[download-image]: https://img.shields.io/npm/dm/@eggjs/i18n.svg?style=flat-square
+[download-url]: https://npmjs.org/package/@eggjs/i18n
 
 可以为你的应用提供多语言的特性
 
@@ -30,31 +27,35 @@
 
 ## 配置
 
-默认处于关闭状态，你需要在 `config/plugin.js` 开启它：
+默认处于关闭状态，你需要在 `config/plugin.ts` 开启它：
 
-```js
-// config/plugin.js
-exports.i18n = {
-  enable: true,
-  package: 'egg-i18n',
+```ts
+// config/plugin.ts
+export default {
+  i18n: {
+    enable: true,
+    package: 'egg-i18n',
+  },
 };
 ```
 
-你可以修改 `config/config.default.js` 来设定 i18n 的配置项：
+你可以修改 `config/config.default.ts` 来设定 i18n 的配置项：
 
-```js
-// config/config.default.js
-exports.i18n = {
-  // 默认语言，默认 "en_US"
-  defaultLocale: 'zh-CN',
-  // URL 参数，默认 "locale"
-  queryField: 'locale',
-  // Cookie 记录的 key, 默认："locale"
-  cookieField: 'locale',
-  // Cookie 的 domain 配置，默认为空，代表当前域名有效
-  cookieDomain: '',
-  // Cookie 默认 `1y` 一年后过期， 如果设置为 Number，则单位为 ms
-  cookieMaxAge: '1y',
+```ts
+// config/config.default.ts
+export default {
+  i18n: {
+    // 默认语言，默认 "en_US"
+    defaultLocale: 'zh-CN',
+    // URL 参数，默认 "locale"
+    queryField: 'locale',
+    // Cookie 记录的 key, 默认："locale"
+    cookieField: 'locale',
+    // Cookie 的 domain 配置，默认为空，代表当前域名有效
+    cookieDomain: '',
+    // Cookie 默认 `1y` 一年后过期， 如果设置为 Number，则单位为 ms
+    cookieMaxAge: '1y',
+  },
 };
 ```
 
@@ -62,18 +63,18 @@ exports.i18n = {
 
 ## 编写你的 I18n 多语言文件
 
-```js
-// config/locale/zh-CN.js
-module.exports = {
+```ts
+// config/locale/zh-CN.ts
+export default {
   "Email": "邮箱",
   "Welcome back, %s!": "欢迎回来，%s!",
   "Hello %s, how are you today?": "你好 %s, 今天过得咋样？",
 };
 ```
 
-```js
-// config/locale/en-US.js
-module.exports = {
+```ts
+// config/locale/en-US.ts
+export default {
   "Email": "Email",
 };
 ```
@@ -95,25 +96,26 @@ I18n 为你提供 `__` (Alias: `gettext`) 函数，让你可以轻松获得 loca
 
 > NOTE: __ 是两个下划线哦！
 
-- ctx.__ = function (key, value[, value2, ...]): 类似 util.format 接口
-- ctx.__ = function (key, values): 支持数组下标占位符方式，如
+- `ctx.__ = function (key, value[, value2, ...])`: 类似 util.format 接口
+- `ctx.__ = function (key, values)`: 支持数组下标占位符方式，如
 
-```js
-ctx.__('{0} {0} {1} {1}'), ['foo', 'bar'])
-ctx.gettext('{0} {0} {1} {1}'), ['foo', 'bar'])
+```ts
+ctx.__('{0} {0} {1} {1}'), ['foo', 'bar']);
+ctx.gettext('{0} {0} {1} {1}'), ['foo', 'bar']);
+
 =>
 foo foo bar bar
 ```
 
 ### Controllers 下的使用示例
 
-```js
-module.exports = function* () {
-  this.body = {
-    message: this.__('Welcome back, %s!', this.user.name)
+```ts
+export default ctx => {
+  ctx.body = {
+    message: ctx.__('Welcome back, %s!', ctx.user.name)
     // 或者使用 gettext，如果觉得 __ 不好看的话
-    // message: this.gettext('Welcome back, %s!', this.user.name)
-    user: this.user,
+    // message: this.gettext('Welcome back, %s!', ctx.user.name)
+    user: ctx.user,
   };
 };
 ```
@@ -132,10 +134,24 @@ module.exports = function* () {
 
 ### 修改应用的默认语言
 
-你可以用下面几种方式修改应用的当前语言（修改或会记录到 Cookie)，下次请求直接用设定好的语言。
+你可以用下面几种方式修改应用的当前语言（修改或会记录到 Cookie），下次请求直接用设定好的语言。
 
 优先级从上到下：
 
-- query: /?locale=en-US
-- cookie: locale=zh-TW
-- header: Accept-Language: zh-CN,zh;q=0.5
+- query: `/?locale=en-US`
+- cookie: `locale=zh-TW`
+- header: `Accept-Language: zh-CN,zh;q=0.5`
+
+## Questions & Suggestions
+
+Please open an issue [here](https://github.com/eggjs/egg/issues).
+
+## License
+
+[MIT](LICENSE)
+
+## Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=eggjs/i18n)](https://github.com/eggjs/i18n/graphs/contributors)
+
+Made with [contributors-img](https://contrib.rocks).

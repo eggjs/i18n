@@ -1,26 +1,28 @@
-'use strict';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  startCluster as _startCluster,
+  Application as _Application,
+  Agent as _Agent,
+} from 'egg';
 
-const egg = require('egg');
+const __filename = fileURLToPath(import.meta.url);
+const EGG_PATH = path.dirname(__filename);
 
-const EGG_PATH = __dirname;
-const startCluster = egg.startCluster;
-
-class CustomApplication extends egg.Application {
+export class Application extends _Application {
   get [Symbol.for('egg#eggPath')]() {
     return EGG_PATH;
   }
 }
 
-class BeggAgent extends egg.Agent {
+export class Agent extends _Agent {
   get [Symbol.for('egg#eggPath')]() {
     return EGG_PATH;
   }
 }
 
-exports.Application = CustomApplication;
-exports.Agent = BeggAgent;
-module.exports.startCluster = (options, callback) => {
+export function startCluster(options, callback) {
   options = options || {};
   options.customEgg = EGG_PATH;
-  startCluster(options, callback);
-};
+  _startCluster(options, callback);
+}

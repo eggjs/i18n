@@ -1,16 +1,16 @@
-'use strict';
+import { Context } from '@eggjs/core';
 
-module.exports = {
+export default class I18nContext extends Context {
   /**
    * get current request locale
    * @member Context#locale
    * @return {String} lower case locale string, e.g.: 'zh-cn', 'en-us'
    */
-  get locale() {
+  get locale(): string {
     return this.__getLocale();
-  },
+  }
 
-  set locale(l) {
-    return this.__setLocale(l);
-  },
-};
+  set locale(l: string) {
+    this.__setLocale(l);
+  }
+}
