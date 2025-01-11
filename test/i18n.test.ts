@@ -176,6 +176,20 @@ describe('test/i18n.test.ts', () => {
         .expect('text from ts file');
     });
 
+    it('should load locale resource from .yaml file work', async () => {
+      await app.httpRequest()
+        .get('/?key=EmailYaml')
+        .set('Accept-Language', 'zh-CN,zh;q=0.5')
+        .expect('邮箱 from yaml');
+    });
+
+    it('should load locale resource from .properties file work', async () => {
+      await app.httpRequest()
+        .get('/?key=EmailIni')
+        .set('Accept-Language', 'zh-CN,zh;q=0.5')
+        .expect('邮箱 from properties');
+    });
+
     it('should return locale from plugin b', async () => {
       await app.httpRequest()
         .get('/?key=pluginB')
