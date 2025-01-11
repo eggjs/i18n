@@ -1,15 +1,6 @@
 /**
  * I18n options
  * @member Config#i18n
- * @property {String} defaultLocale - 默认语言是美式英语，毕竟支持多语言，基本都是以英语为母板
- * @property {Array} dirs - 多语言资源文件存放路径，不建议修改
- * @property {String} queryField - 设置当前语言的 query 参数字段名，默认通过 `query.locale` 获取
- *   如果你想修改为 `query.lang`，那么请通过修改此配置实现
- * @property {String} cookieField - 如果当前请求用户语言有变化，都会设置到 cookie 中保持着，
- *   默认是存储在key 为 locale 的 cookie 中
- * @property {String} cookieDomain - 存储 locale 的 cookie domain 配置，默认不设置，为当前域名才有效
- * @property {String|Number} cookieMaxAge - cookie 默认 `1y` 一年后过期，
- *   如果设置为 Number，则单位为 ms
  */
 export interface I18nConfig {
   /**
@@ -22,6 +13,10 @@ export interface I18nConfig {
    * 默认值是 `[]`
    */
   dirs: string[];
+  /**
+   * @deprecated please use `dirs` instead
+   */
+  dir?: string;
   /**
    * 设置当前语言的 query 参数字段名，默认通过 `query.locale` 获取
    * 如果你想修改为 `query.lang`，那么请通过修改此配置实现
@@ -44,6 +39,16 @@ export interface I18nConfig {
    * 默认值是 `'1y'`
    */
   cookieMaxAge: string | number;
+  /**
+   * locale 别名，比如 zh_CN => cn
+   * 默认值是 `{}`
+   */
+  localeAlias: Record<string, string>;
+  /**
+   * 是否写入 cookie
+   * 默认值是 `true`
+   */
+  writeCookie: boolean;
 }
 
 declare module '@eggjs/core' {
@@ -63,8 +68,13 @@ declare module '@eggjs/core' {
     gettext(key: string, ...args: any[]): string;
     __(key: string, ...args: any[]): string;
 
-    // @TODO(fengmk2): these methods create by koa-locales, should remove them after koa-locales refactor by typescript
     __getLocale(): string;
     __setLocale(l: string): void;
+  }
+
+  interface EggCore {
+    isSupportLocale(locale: string): boolean;
+    gettext(locale: string, key: string, value?: any, ...args: any[]): string;
+    __(locale: string, key: string, value?: any, ...args: any[]): string;
   }
 }

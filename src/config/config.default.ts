@@ -8,5 +8,8 @@ export default {
     cookieField: 'locale',
     cookieDomain: '',
     cookieMaxAge: '1y',
+    localeAlias: {},
+    writeCookie: true,
+    dir: undefined,
   } as I18nConfig,
 };

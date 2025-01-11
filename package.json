@@ -32,6 +32,10 @@
   },
   "dependencies": {
     "@eggjs/core": "^6.2.13",
+    "@eggjs/utils": "^4.2.5",
+    "humanize-ms": "^2.0.0",
+    "ini": "^5.0.0",
+    "js-yaml": "^4.1.0",
     "koa-locales": "^1.12.0",
     "utility": "^2.4.0"
   },
@@ -40,6 +44,8 @@
     "@eggjs/bin": "7",
     "@eggjs/mock": "6",
     "@eggjs/tsconfig": "1",
+    "@types/ini": "^4.1.1",
+    "@types/js-yaml": "^4.0.9",
     "@types/mocha": "10",
     "@types/node": "22",
     "egg": "4",

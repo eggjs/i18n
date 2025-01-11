@@ -16,6 +16,8 @@ describe('test/i18n.test.ts', () => {
   });
   after(() => app.close());
 
+  afterEach(mm.restore);
+
   describe('ctx.__(key, value)', () => {
     it('should return locale de', async () => {
       await app.httpRequest()
@@ -149,7 +151,7 @@ describe('test/i18n.test.ts', () => {
     });
   });
 
-  describe('loader', function() {
+  describe('loader', () => {
     let app: MockApplication;
     before(async () => {
       app = mm.app({
@@ -165,6 +167,13 @@ describe('test/i18n.test.ts', () => {
         .get('/?key=pluginA')
         .set('Accept-Language', 'zh-CN,zh;q=0.5')
         .expect('true');
+    });
+
+    it('should load locale resource from .ts file work', async () => {
+      await app.httpRequest()
+        .get('/?key=pluginATS')
+        .set('Accept-Language', 'zh-CN,zh;q=0.5')
+        .expect('text from ts file');
     });
 
     it('should return locale from plugin b', async () => {
@@ -200,7 +209,7 @@ describe('test/i18n.test.ts', () => {
         await app.httpRequest()
           .get('/renderString')
           .expect(200)
-          .expect('Set-Cookie', /locale=en-us; path=\/; expires=[^;]+ GMT/)
+          .expect('Set-Cookie', /locale=en-us; path=\/; max-age=31557600; expires=[^;]+ GMT/)
           .expect('<li>Email: </li>\n<li>Hello fengmk2, how are you today?</li>\n<li>foo bar</li>\n');
       });
 
@@ -208,7 +217,7 @@ describe('test/i18n.test.ts', () => {
         await app.httpRequest()
           .get('/renderString?locale=zh_CN')
           .expect(200)
-          .expect('Set-Cookie', /locale=zh-cn; path=\/; expires=[^;]+ GMT/)
+          .expect('Set-Cookie', /locale=zh-cn; path=\/; max-age=31557600; expires=[^;]+ GMT/)
           .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n');
       });
 
@@ -220,21 +229,21 @@ describe('test/i18n.test.ts', () => {
           .get('/renderString')
           .set('Accept-Language', 'zh-CN,zh;q=0.5')
           .expect(200)
-          .expect('Set-Cookie', /locale=zh-cn; path=\/; expires=[^;]+ GMT/)
+          .expect('Set-Cookie', /locale=zh-cn; path=\/; max-age=31557600; expires=[^;]+ GMT/)
           .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n');
 
         await app.httpRequest()
           .get('/renderString')
           .set('Accept-Language', 'zh-CN;q=1')
           .expect(200)
-          .expect('Set-Cookie', /locale=zh-cn; path=\/; expires=[^;]+ GMT/)
+          .expect('Set-Cookie', /locale=zh-cn; path=\/; max-age=31557600; expires=[^;]+ GMT/)
           .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n');
 
         await app.httpRequest()
           .get('/renderString')
           .set('Accept-Language', 'zh_cn')
           .expect(200)
-          .expect('Set-Cookie', /locale=zh-cn; path=\/; expires=[^;]+ GMT/)
+          .expect('Set-Cookie', /locale=zh-cn; path=\/; max-age=31557600; expires=[^;]+ GMT/)
           .expect('<li>邮箱: </li>\n<li>fengmk2，今天过得如何？</li>\n<li>foo bar</li>\n');
       });
 
@@ -243,7 +252,7 @@ describe('test/i18n.test.ts', () => {
           .get('/renderString?locale=en-US')
           .set('Cookie', 'locale=zh-CN')
           .expect(200)
-          .expect('Set-Cookie', /locale=en-us; path=\/; expires=[^;]+ GMT/)
+          .expect('Set-Cookie', /locale=en-us; path=\/; max-age=31557600; expires=[^;]+ GMT/)
           .expect('<li>Email: </li>\n<li>Hello fengmk2, how are you today?</li>\n<li>foo bar</li>\n');
       });
 
