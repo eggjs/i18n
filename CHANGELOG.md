@@ -1,3 +1,47 @@
+# Changelog
+
+## [3.0.0](https://github.com/eggjs/i18n/compare/v2.1.1...v3.0.0) (2025-01-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Node.js < 18.19.0 support
+
+part of https://github.com/eggjs/egg/issues/3644
+
+https://github.com/eggjs/egg/issues/5257
+
+<!-- This is an auto-generated comment: release notes by coderabbit.ai
+-->
+## Summary by CodeRabbit
+
+Based on the comprehensive changes, here are the updated release notes:
+
+- **New Features**
+  - Migrated package to TypeScript with improved type safety.
+- Enhanced internationalization (i18n) support with more flexible
+configuration.
+  - Added comprehensive GitHub Actions workflows for CI/CD.
+
+- **Improvements**
+  - Updated Node.js compatibility to version 18.19.0+.
+  - Modernized module system with ES module support.
+  - Refined configuration and localization mechanisms.
+
+- **Breaking Changes**
+  - Package renamed from `egg-i18n` to `@eggjs/i18n`.
+  - Switched from CommonJS to ES module syntax.
+  - Removed legacy configuration files and testing infrastructure.
+
+- **Chores**
+  - Cleaned up and simplified project structure.
+  - Updated dependencies and development tooling.
+  - Improved documentation and README.
+<!-- end of auto-generated comment: release notes by coderabbit.ai -->
+
+### Features
+
+* support cjs and esm both by tshy ([#14](https://github.com/eggjs/i18n/issues/14)) ([ccc8eaa](https://github.com/eggjs/i18n/commit/ccc8eaa8ea87e84cd706643883c1243db5efa67c))
 
 2.1.1 / 2019-04-30
 ==================
