@@ -65,8 +65,8 @@ declare module '@eggjs/core' {
      */
     locale: string;
 
-    gettext(key: string, ...args: any[]): string;
-    __(key: string, ...args: any[]): string;
+    gettext(key: string, value?: any, ...args: any[]): string;
+    __(key: string, value?: any, ...args: any[]): string;
 
     __getLocale(): string;
     __setLocale(l: string): void;

@@ -36,7 +36,6 @@
     "humanize-ms": "^2.0.0",
     "ini": "^5.0.0",
     "js-yaml": "^4.1.0",
-    "koa-locales": "^1.12.0",
     "utility": "^2.4.0"
   },
   "devDependencies": {

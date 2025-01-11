@@ -75,6 +75,21 @@ describe('test/i18n.test.ts', () => {
           values: 'foo bar foo bar {2} {100}',
         });
     });
+
+    it('should __() work', () => {
+      const ctx = app.mockContext();
+      assert.strictEqual(ctx.__(''), '');
+      assert.strictEqual(ctx.__('Email'), 'Email');
+      assert.strictEqual(ctx.__('Email %s', 'ok'), 'Email ok');
+      assert.strictEqual(ctx.__('Email %s %d', 'ok', 1), 'Email ok 1');
+      assert.strictEqual(ctx.__('Email %s %d %j', 'ok', 1, { foo: 'bar' }), 'Email ok 1 {"foo":"bar"}');
+      assert.strictEqual(ctx.__('Email %s %d %j %s', 'ok', 1, { foo: 'bar' }, 'foo'), 'Email ok 1 {"foo":"bar"} foo');
+      assert.strictEqual(ctx.__('Email {a} {b}', { a: 'a', b: 'b' }), 'Email a b');
+      assert.strictEqual(ctx.__('Email {a} {b} {c}', { a: 'a', b: 'b' }), 'Email a b {c}');
+      assert.strictEqual(ctx.__('Email {0} {1}', [ 'a', 'b' ]), 'Email a b');
+      assert.strictEqual(ctx.app.__('en-us', 'Email {0} {1}', [ 'a', 'b' ]), 'Email a b');
+      assert.strictEqual(ctx.app.__('en-us', '', [ 'a', 'b' ]), '');
+    });
   });
 
   describe('with cookieDomain', () => {
