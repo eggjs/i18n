@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/eggjs/i18n/compare/v3.0.0...v3.0.1) (2025-01-12)
+
+
+### Bug Fixes
+
+* not allow to override the `app.locals.__` method ([#15](https://github.com/eggjs/i18n/issues/15)) ([6e8447c](https://github.com/eggjs/i18n/commit/6e8447c82281269756e746de38845bd65fde1976))
+
 ## [3.0.0](https://github.com/eggjs/i18n/compare/v2.1.1...v3.0.0) (2025-01-11)
 
 

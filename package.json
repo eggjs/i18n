@@ -1,6 +1,6 @@
 {
   "name": "@eggjs/i18n",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "publishConfig": {
     "access": "public"
   },
