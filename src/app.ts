@@ -93,7 +93,15 @@ export default class I18n implements ILifecycleBoot {
       return ctx.gettext(key, ...args);
     }
     // 在 view 中使用 `__(key, value, ...args)`
-    this.app.locals.gettext = gettextInContext;
-    this.app.locals.__ = gettextInContext;
+    Object.defineProperties(app.locals, {
+      __: {
+        value: gettextInContext,
+        enumerable: true,
+      },
+      gettext: {
+        value: gettextInContext,
+        enumerable: true,
+      },
+    });
   }
 }
