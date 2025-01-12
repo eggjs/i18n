@@ -90,6 +90,20 @@ describe('test/i18n.test.ts', () => {
       assert.strictEqual(ctx.app.__('en-us', 'Email {0} {1}', [ 'a', 'b' ]), 'Email a b');
       assert.strictEqual(ctx.app.__('en-us', '', [ 'a', 'b' ]), '');
     });
+
+    it('should ctx.locals.__() work', () => {
+      const ctx = app.mockContext();
+      assert.equal(ctx.locals.__('Email %s', 'ok'), 'Email ok');
+      ctx.locals.a = 'aaa';
+      assert.equal(ctx.locals.a, 'aaa');
+      assert.deepEqual(Object.keys(ctx.locals), [ '__', 'gettext', 'a' ]);
+    });
+
+    it('should not allow to override the app.locals.__', () => {
+      assert.throws(() => {
+        app.locals.__ = () => 'app.__';
+      }, /Cannot assign to read only property '__' of object/);
+    });
   });
 
   describe('with cookieDomain', () => {
